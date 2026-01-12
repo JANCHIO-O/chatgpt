@@ -92,11 +92,12 @@ public class CatalogService {
 
         // “最近一次移送”清单：先清空旧的
         transferRepo.deleteAll();
+        long transferSequence = 1L;
 
         for (CatalogBookEntity b : batch) {
             // 写移送清单
             TransferRecordEntity tr = new TransferRecordEntity(
-                    generateTransferId8(),
+                    generateTransferId8(transferSequence++),
                     b.getBookId(),
                     movePos,
                     LocalDate.now()
@@ -137,9 +138,8 @@ public class CatalogService {
         return String.format("B%07d", count); // 8位
     }
 
-    private String generateTransferId8() {
-        long count = transferRepo.count() + 1;
-        return String.format("T%07d", count); // 8位
+    private String generateTransferId8(long sequence) {
+        return String.format("T%07d", sequence); // 8位
     }
 
     private String generateCheckId10() {
