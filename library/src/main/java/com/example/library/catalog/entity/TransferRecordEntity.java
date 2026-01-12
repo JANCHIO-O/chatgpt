@@ -14,6 +14,10 @@ public class TransferRecordEntity {
     @Column(length = 13, nullable = false)
     private String isbn;
 
+    @Column(length = 100, nullable = false)
+    private String bookName;
+
+
     @Column(length = 8, nullable = false)
     private String bookId;
 
@@ -22,15 +26,12 @@ public class TransferRecordEntity {
 
     private LocalDate transferDate;
 
-    // 添加与 CatalogBookEntity 的关联
-    @ManyToOne
-    @JoinColumn(name = "bookId", referencedColumnName = "bookId", insertable = false, updatable = false)
-    private CatalogBookEntity catalogBook;
-
     public TransferRecordEntity() {}
 
-    public TransferRecordEntity(String transferId, String bookId, String movePos, LocalDate transferDate) {
+    public TransferRecordEntity(String transferId, String isbn, String bookName, String bookId, String movePos, LocalDate transferDate) {
         this.transferId = transferId;
+        this.isbn = isbn;
+        this.bookName = bookName;
         this.bookId = bookId;
         this.movePos = movePos;
         this.transferDate = transferDate;
@@ -43,6 +44,15 @@ public class TransferRecordEntity {
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
+
+    public String getBookName() {
+        return bookName;
+    }
+
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
+    }
+
 
     public String getTransferId() {
         return transferId;
@@ -72,12 +82,4 @@ public class TransferRecordEntity {
         this.transferDate = transferDate;
     }
 
-    // 获取与 CatalogBookEntity 关联的字段
-    public CatalogBookEntity getCatalogBook() {
-        return catalogBook;
-    }
-
-    public void setCatalogBook(CatalogBookEntity catalogBook) {
-        this.catalogBook = catalogBook;
-    }
 }

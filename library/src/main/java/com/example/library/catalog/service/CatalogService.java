@@ -4,6 +4,7 @@ import com.example.library.catalog.entity.CatalogBookEntity;
 import com.example.library.catalog.entity.TransferRecordEntity;
 import com.example.library.catalog.repository.CatalogBookRepository;
 import com.example.library.catalog.repository.TransferRecordRepository;
+import com.example.library.catalog.dto.TransferBookDto;
 import com.example.library.common.entity.AcceptanceRecord;
 import com.example.library.common.entity.CirculationBook;
 import com.example.library.common.repository.AcceptanceRecordRepository;
@@ -92,15 +93,19 @@ public class CatalogService {
 
         // “最近一次移送”清单：先清空旧的
         transferRepo.deleteAll();
+        long transferSequence = 1L;
 
         for (CatalogBookEntity b : batch) {
             // 写移送清单
             TransferRecordEntity tr = new TransferRecordEntity(
-                    generateTransferId8(),
+                    generateTransferId8(transferSequence++),
+                    b.getIsbn(),
+                    b.getBookName(),
                     b.getBookId(),
                     movePos,
                     LocalDate.now()
             );
+            tr.setIsbn(b.getIsbn());
             transferRepo.save(tr);
 
             // 写入流通库（永久）
@@ -118,17 +123,8 @@ public class CatalogService {
 
     /** 查询移送清单 */
     public List<TransferRecordEntity> listLatestTransfer() {
-        List<TransferRecordEntity> transferList = transferRepo.findAll();
-
-        // 为每个 TransferRecordEntity 填充 catalogBook
-        for (TransferRecordEntity record : transferList) {
-            CatalogBookEntity book = catalogRepo.findByBookId(record.getBookId());
-            record.setCatalogBook(book); // 设置 catalogBook 信息
-        }
-
-        return transferList;
+        return transferRepo.findAll();
     }
-
     // ===== ID 生成 =====
 
     private String generateBookId8() {
@@ -136,9 +132,8 @@ public class CatalogService {
         return String.format("B%07d", count); // 8位
     }
 
-    private String generateTransferId8() {
-        long count = transferRepo.count() + 1;
-        return String.format("T%07d", count); // 8位
+    private String generateTransferId8(long sequence) {
+        return String.format("T%07d", sequence); // 8位
     }
 
     private String generateCheckId10() {
