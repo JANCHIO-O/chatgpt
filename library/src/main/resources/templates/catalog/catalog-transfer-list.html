@@ -10,20 +10,19 @@
 
 <table border="1">
     <tr>
+        <th>移送编号</th>
+        <th>图书编号</th>
         <th>ISBN</th>
-        <th>书名</th>
-        <th>数量</th>
         <th>目标位置</th>
-        <th>移送状态</th>
+        <th>移送日期</th>
     </tr>
 
-    <tr th:each="book : ${transferList}">
-        <td th:text="${book.isbn}"></td>
-        <td th:text="${book.bookName}"></td>
-        <td th:text="${book.amount}"></td>
-        <!-- ⭐ 正确字段名 -->
-        <td th:text="${book.location}"></td>
-        <td th:text="${book.transferStatus}"></td>
+    <tr th:each="record : ${transferList}">
+        <td th:text="${record.transferId}"></td>
+        <td th:text="${record.bookId}"></td>
+        <td th:text="${record.isbn}"></td>
+        <td th:text="${record.movePos}"></td>
+        <td th:text="${#temporals.format(record.transferDate, 'yyyy-MM-dd')}"></td>
     </tr>
 </table>
 

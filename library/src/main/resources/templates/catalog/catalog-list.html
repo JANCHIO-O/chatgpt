@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>编目清单</title>
@@ -13,7 +13,6 @@
         <th>图书编号</th>
         <th>ISBN</th>
         <th>书名</th>
-        <th>分类号</th>
         <th>编目员</th>
         <th>编目日期</th>
     </tr>
@@ -23,7 +22,7 @@
         <td th:text="${book.isbn}"></td>
         <td th:text="${book.bookName}"></td>
         <td th:text="${book.cataloger}"></td>
-        <td th:text="${#dates.format(book.catalogDate,'yyyy-MM-dd')}"></td>
+        <td th:text="${#temporals.format(book.catalogDate,'yyyy-MM-dd')}"></td>
     </tr>
 </table>
 
