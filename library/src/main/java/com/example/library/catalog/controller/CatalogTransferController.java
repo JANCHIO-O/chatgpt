@@ -28,7 +28,7 @@ public class CatalogTransferController {
 
     @GetMapping("/catalog/transfer/list")
     public String transferList(Model model) {
-        model.addAttribute("transferList", catalogService.listLatestTransfer());
+        model.addAttribute("transferList", catalogService.listLatestTransferSummaries());
         return "catalog/catalog-transfer-list";
     }
 }
