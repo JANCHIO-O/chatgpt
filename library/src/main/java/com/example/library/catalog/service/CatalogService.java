@@ -101,6 +101,7 @@ public class CatalogService {
                     movePos,
                     LocalDate.now()
             );
+            tr.setIsbn(b.getIsbn());
             transferRepo.save(tr);
 
             // 写入流通库（永久）
