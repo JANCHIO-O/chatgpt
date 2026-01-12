@@ -16,7 +16,7 @@ public class CatalogNoticeController {
 
     @GetMapping("/catalog/notice")
     public String notice(Model model) {
-        model.addAttribute("transferList", catalogService.listLatestTransfer());
+        model.addAttribute("transferList", catalogService.listLatestTransferRecords());
         return "catalog/catalog-notice";
     }
 }

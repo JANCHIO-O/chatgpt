@@ -4,6 +4,7 @@ import com.example.library.catalog.entity.CatalogBookEntity;
 import com.example.library.catalog.entity.TransferRecordEntity;
 import com.example.library.catalog.repository.CatalogBookRepository;
 import com.example.library.catalog.repository.TransferRecordRepository;
+import com.example.library.catalog.dto.TransferBookDto;
 import com.example.library.common.entity.AcceptanceRecord;
 import com.example.library.common.entity.CirculationBook;
 import com.example.library.common.repository.AcceptanceRecordRepository;
@@ -97,6 +98,8 @@ public class CatalogService {
             // 写移送清单
             TransferRecordEntity tr = new TransferRecordEntity(
                     generateTransferId8(),
+                    b.getIsbn(),
+                    b.getBookName(),
                     b.getBookId(),
                     movePos,
                     LocalDate.now()
@@ -116,17 +119,21 @@ public class CatalogService {
         catalogRepo.deleteAll();
     }
 
-    /** 查询移送清单 */
-    public List<TransferRecordEntity> listLatestTransfer() {
-        List<TransferRecordEntity> transferList = transferRepo.findAll();
+    /** 查询移送清单（页面展示） */
+    public List<TransferBookDto> listLatestTransferSummaries() {
+        return transferRepo.findAll().stream()
+                .map(record -> new TransferBookDto(
+                        record.getIsbn(),
+                        record.getBookName(),
+                        1,
+                        record.getMovePos()
+                ))
+                .toList();
+    }
 
-        // 为每个 TransferRecordEntity 填充 catalogBook
-        for (TransferRecordEntity record : transferList) {
-            CatalogBookEntity book = catalogRepo.findByBookId(record.getBookId());
-            record.setCatalogBook(book); // 设置 catalogBook 信息
-        }
-
-        return transferList;
+    /** 查询移送记录（通报使用） */
+    public List<TransferRecordEntity> listLatestTransferRecords() {
+        return transferRepo.findAll();
     }
 
     // ===== ID 生成 =====
