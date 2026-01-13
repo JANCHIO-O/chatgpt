@@ -24,81 +24,93 @@ public class PeriodicalController {
     @GetMapping("/visit")
     public String visit(Model model) {
         model.addAttribute("visitList", periodicalService.listVisits());
-        model.addAttribute("interviewList", periodicalService.listInterviewRecords());
         return "periodical/visit";
     }
 
     @PostMapping("/visit/add")
     public String addVisit(@RequestParam String title,
                            @RequestParam String issn,
+                           @RequestParam String publisher,
                            @RequestParam String recommender,
                            @RequestParam String recommendDate,
                            @RequestParam String reason) {
-        periodicalService.addVisitRecord(title, issn, recommender, recommendDate, reason);
-        return "redirect:/periodical/visit";
-    }
-
-    @PostMapping("/visit/interview/add")
-    public String addInterview(@RequestParam String title,
-                               @RequestParam String issn,
-                               @RequestParam String publisher,
-                               @RequestParam String interviewer,
-                               @RequestParam String interviewDate,
-                               @RequestParam String notes) {
-        periodicalService.addInterviewRecord(title, issn, publisher, interviewer, interviewDate, notes);
+        periodicalService.addVisitRecord(title, issn, publisher, recommender, recommendDate, reason);
         return "redirect:/periodical/visit";
     }
 
     @GetMapping("/order")
-    public String order(Model model) {
+    public String order(Model model,
+                        @RequestParam(required = false) String title,
+                        @RequestParam(required = false) String issn,
+                        @RequestParam(required = false) String publisher) {
         model.addAttribute("orderList", periodicalService.listOrders());
+        model.addAttribute("prefillTitle", title);
+        model.addAttribute("prefillIssn", issn);
+        model.addAttribute("prefillPublisher", publisher);
         return "periodical/order";
     }
 
     @PostMapping("/order/add")
     public String addOrder(@RequestParam String title,
                            @RequestParam String issn,
-                           @RequestParam String supplier,
+                           @RequestParam String publisher,
                            @RequestParam Integer quantity,
                            @RequestParam Double unitPrice,
                            @RequestParam String orderDate) {
-        periodicalService.addOrder(title, issn, supplier, quantity, unitPrice, orderDate);
+        periodicalService.addOrder(title, issn, publisher, quantity, unitPrice, orderDate);
         return "redirect:/periodical/order";
     }
 
     @GetMapping("/verify")
-    public String verify(Model model) {
+    public String verify(Model model,
+                         @RequestParam(required = false) String orderId,
+                         @RequestParam(required = false) String title,
+                         @RequestParam(required = false) String issn,
+                         @RequestParam(required = false) String publisher,
+                         @RequestParam(required = false) Integer quantity) {
         model.addAttribute("acceptanceList", periodicalService.listAcceptanceRecords());
+        model.addAttribute("prefillOrderId", orderId);
+        model.addAttribute("prefillTitle", title);
+        model.addAttribute("prefillIssn", issn);
+        model.addAttribute("prefillPublisher", publisher);
+        model.addAttribute("prefillQuantity", quantity);
         return "periodical/verify";
     }
 
     @PostMapping("/verify/add")
-    public String addAcceptance(@RequestParam String title,
+    public String addAcceptance(@RequestParam String orderId,
+                                @RequestParam String title,
                                 @RequestParam String issn,
                                 @RequestParam String publisher,
                                 @RequestParam Integer receivedQuantity,
                                 @RequestParam String checker,
                                 @RequestParam String acceptanceDate,
                                 @RequestParam String status) {
-        periodicalService.addAcceptanceRecord(title, issn, publisher, receivedQuantity, checker, acceptanceDate, status);
+        periodicalService.addAcceptanceRecord(orderId, title, issn, publisher, receivedQuantity, checker, acceptanceDate, status);
         return "redirect:/periodical/verify";
     }
 
     @GetMapping("/bind")
-    public String bind(Model model) {
+    public String bind(Model model,
+                       @RequestParam(required = false) String title,
+                       @RequestParam(required = false) String issn,
+                       @RequestParam(required = false) String publisher) {
         model.addAttribute("bindingList", periodicalService.listBindingRecords());
         model.addAttribute("catalogList", periodicalService.listCatalogEntries());
+        model.addAttribute("prefillTitle", title);
+        model.addAttribute("prefillIssn", issn);
+        model.addAttribute("prefillPublisher", publisher);
         return "periodical/bind";
     }
 
     @PostMapping("/bind/add")
     public String addBind(@RequestParam String title,
                           @RequestParam String issn,
-                          @RequestParam String volumeInfo,
+                          @RequestParam String publisher,
                           @RequestParam String binder,
                           @RequestParam String bindDate,
                           @RequestParam String shelfLocation) {
-        periodicalService.addBindingRecordAndCatalog(title, issn, volumeInfo, binder, bindDate, shelfLocation);
+        periodicalService.addBindingRecordAndCatalog(title, issn, publisher, binder, bindDate, shelfLocation);
         return "redirect:/periodical/bind";
     }
 

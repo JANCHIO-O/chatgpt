@@ -14,18 +14,18 @@ public class PeriodicalCatalogEntry {
 
     private String title;
     private String issn;
-    private String volumeInfo;
+    private String publisher;
     private Date publishDate;
     private String location;
 
     public PeriodicalCatalogEntry() {
     }
 
-    public PeriodicalCatalogEntry(String catalogId, String title, String issn, String volumeInfo, Date publishDate, String location) {
+    public PeriodicalCatalogEntry(String catalogId, String title, String issn, String publisher, Date publishDate, String location) {
         this.catalogId = catalogId;
         this.title = title;
         this.issn = issn;
-        this.volumeInfo = volumeInfo;
+        this.publisher = publisher;
         this.publishDate = publishDate;
         this.location = location;
     }
@@ -54,12 +54,12 @@ public class PeriodicalCatalogEntry {
         this.issn = issn;
     }
 
-    public String getVolumeInfo() {
-        return volumeInfo;
+    public String getPublisher() {
+        return publisher;
     }
 
-    public void setVolumeInfo(String volumeInfo) {
-        this.volumeInfo = volumeInfo;
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
     }
 
     public Date getPublishDate() {

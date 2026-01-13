@@ -14,6 +14,7 @@ public class PeriodicalVisitRecord {
 
     private String title;
     private String issn;
+    private String publisher;
     private String recommender;
     private Date recommendDate;
     private String reason;
@@ -21,10 +22,11 @@ public class PeriodicalVisitRecord {
     public PeriodicalVisitRecord() {
     }
 
-    public PeriodicalVisitRecord(String visitId, String title, String issn, String recommender, Date recommendDate, String reason) {
+    public PeriodicalVisitRecord(String visitId, String title, String issn, String publisher, String recommender, Date recommendDate, String reason) {
         this.visitId = visitId;
         this.title = title;
         this.issn = issn;
+        this.publisher = publisher;
         this.recommender = recommender;
         this.recommendDate = recommendDate;
         this.reason = reason;
@@ -52,6 +54,14 @@ public class PeriodicalVisitRecord {
 
     public void setIssn(String issn) {
         this.issn = issn;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
     }
 
     public String getRecommender() {

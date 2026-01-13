@@ -14,7 +14,7 @@ public class PeriodicalBindingRecord {
 
     private String title;
     private String issn;
-    private String volumeInfo;
+    private String publisher;
     private String binder;
     private Date bindDate;
     private String shelfLocation;
@@ -22,11 +22,11 @@ public class PeriodicalBindingRecord {
     public PeriodicalBindingRecord() {
     }
 
-    public PeriodicalBindingRecord(String bindId, String title, String issn, String volumeInfo, String binder, Date bindDate, String shelfLocation) {
+    public PeriodicalBindingRecord(String bindId, String title, String issn, String publisher, String binder, Date bindDate, String shelfLocation) {
         this.bindId = bindId;
         this.title = title;
         this.issn = issn;
-        this.volumeInfo = volumeInfo;
+        this.publisher = publisher;
         this.binder = binder;
         this.bindDate = bindDate;
         this.shelfLocation = shelfLocation;
@@ -56,12 +56,12 @@ public class PeriodicalBindingRecord {
         this.issn = issn;
     }
 
-    public String getVolumeInfo() {
-        return volumeInfo;
+    public String getPublisher() {
+        return publisher;
     }
 
-    public void setVolumeInfo(String volumeInfo) {
-        this.volumeInfo = volumeInfo;
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
     }
 
     public String getBinder() {

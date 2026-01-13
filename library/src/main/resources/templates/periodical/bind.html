@@ -10,9 +10,9 @@
 
 <h3>➕ 新增装订记录</h3>
 <form action="/periodical/bind/add" method="post">
-    <p>期刊名称：<input type="text" name="title" required></p>
-    <p>ISSN：<input type="text" name="issn" required></p>
-    <p>卷期信息：<input type="text" name="volumeInfo" required></p>
+    <p>期刊名称：<input type="text" name="title" th:value="${prefillTitle}" required></p>
+    <p>ISSN：<input type="text" name="issn" pattern="\\d{8}" th:value="${prefillIssn}" required></p>
+    <p>出版社：<input type="text" name="publisher" th:value="${prefillPublisher}" required></p>
     <p>装订人员：<input type="text" name="binder" required></p>
     <p>装订日期：<input type="date" name="bindDate" required></p>
     <p>馆藏位置：<input type="text" name="shelfLocation" required></p>
@@ -31,7 +31,7 @@
         <th>装订编号</th>
         <th>期刊名称</th>
         <th>ISSN</th>
-        <th>卷期信息</th>
+        <th>出版社</th>
         <th>装订人员</th>
         <th>装订日期</th>
         <th>馆藏位置</th>
@@ -40,7 +40,7 @@
         <td th:text="${record.bindId}"></td>
         <td th:text="${record.title}"></td>
         <td th:text="${record.issn}"></td>
-        <td th:text="${record.volumeInfo}"></td>
+        <td th:text="${record.publisher}"></td>
         <td th:text="${record.binder}"></td>
         <td th:text="${record.bindDate}"></td>
         <td th:text="${record.shelfLocation}"></td>
@@ -59,7 +59,7 @@
         <th>馆藏编号</th>
         <th>期刊名称</th>
         <th>ISSN</th>
-        <th>卷期信息</th>
+        <th>出版社</th>
         <th>出版日期</th>
         <th>馆藏位置</th>
     </tr>
@@ -67,7 +67,7 @@
         <td th:text="${record.catalogId}"></td>
         <td th:text="${record.title}"></td>
         <td th:text="${record.issn}"></td>
-        <td th:text="${record.volumeInfo}"></td>
+        <td th:text="${record.publisher}"></td>
         <td th:text="${record.publishDate}"></td>
         <td th:text="${record.location}"></td>
     </tr>

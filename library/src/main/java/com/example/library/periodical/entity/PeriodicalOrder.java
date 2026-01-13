@@ -14,7 +14,7 @@ public class PeriodicalOrder {
 
     private String title;
     private String issn;
-    private String supplier;
+    private String publisher;
     private Integer quantity;
     private Double unitPrice;
     private Date orderDate;
@@ -23,11 +23,11 @@ public class PeriodicalOrder {
     public PeriodicalOrder() {
     }
 
-    public PeriodicalOrder(String orderId, String title, String issn, String supplier, Integer quantity, Double unitPrice, Date orderDate, String status) {
+    public PeriodicalOrder(String orderId, String title, String issn, String publisher, Integer quantity, Double unitPrice, Date orderDate, String status) {
         this.orderId = orderId;
         this.title = title;
         this.issn = issn;
-        this.supplier = supplier;
+        this.publisher = publisher;
         this.quantity = quantity;
         this.unitPrice = unitPrice;
         this.orderDate = orderDate;
@@ -58,12 +58,12 @@ public class PeriodicalOrder {
         this.issn = issn;
     }
 
-    public String getSupplier() {
-        return supplier;
+    public String getPublisher() {
+        return publisher;
     }
 
-    public void setSupplier(String supplier) {
-        this.supplier = supplier;
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
     }
 
     public Integer getQuantity() {
