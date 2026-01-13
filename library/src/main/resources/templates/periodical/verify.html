@@ -1,10 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>期刊验收</title>
 </head>
 <body>
+
+<h2>✅ 期刊验收</h2>
+
+<h3>➕ 新增期刊验收清单</h3>
+<form action="/periodical/verify/add" method="post">
+    <p>期刊名称：<input type="text" name="title" required></p>
+    <p>ISSN：<input type="text" name="issn" required></p>
+    <p>出版社：<input type="text" name="publisher" required></p>
+    <p>到馆数量：<input type="number" name="receivedQuantity" required></p>
+    <p>验收人：<input type="text" name="checker" required></p>
+    <p>验收日期：<input type="date" name="acceptanceDate" required></p>
+    <p>验收状态：<input type="text" name="status" required></p>
+    <button type="submit">登记验收</button>
+</form>
+
+<hr>
+
+<h3>📋 期刊验收清单</h3>
+<div th:if="${#lists.isEmpty(acceptanceList)}">
+    <p>暂无验收记录</p>
+</div>
+
+<table border="1" th:if="${!#lists.isEmpty(acceptanceList)}">
+    <tr>
+        <th>验收编号</th>
+        <th>期刊名称</th>
+        <th>ISSN</th>
+        <th>出版社</th>
+        <th>到馆数量</th>
+        <th>验收人</th>
+        <th>验收日期</th>
+        <th>验收状态</th>
+    </tr>
+    <tr th:each="record : ${acceptanceList}">
+        <td th:text="${record.acceptanceId}"></td>
+        <td th:text="${record.title}"></td>
+        <td th:text="${record.issn}"></td>
+        <td th:text="${record.publisher}"></td>
+        <td th:text="${record.receivedQuantity}"></td>
+        <td th:text="${record.checker}"></td>
+        <td th:text="${record.acceptanceDate}"></td>
+        <td th:text="${record.status}"></td>
+    </tr>
+</table>
+
+<p><a href="/periodical">返回期刊管理首页</a></p>
 
 </body>
 </html>
