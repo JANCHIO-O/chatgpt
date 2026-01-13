@@ -11,7 +11,8 @@
 <h3>➕ 新增期刊采访清单</h3>
 <form action="/periodical/visit/add" method="post">
     <p>期刊名称：<input type="text" name="title" required></p>
-    <p>ISSN：<input type="text" name="issn" required></p>
+    <p>ISSN：<input type="text" name="issn" pattern="\\d{8}" required></p>
+    <p>出版社：<input type="text" name="publisher" required></p>
     <p>推荐人：<input type="text" name="recommender" required></p>
     <p>推荐日期：<input type="date" name="recommendDate" required></p>
     <p>推荐理由：<input type="text" name="reason" required></p>
@@ -30,56 +31,23 @@
         <th>采访编号</th>
         <th>期刊名称</th>
         <th>ISSN</th>
+        <th>出版社</th>
         <th>推荐人</th>
         <th>推荐日期</th>
         <th>推荐理由</th>
+        <th>操作</th>
     </tr>
     <tr th:each="record : ${visitList}">
         <td th:text="${record.visitId}"></td>
         <td th:text="${record.title}"></td>
         <td th:text="${record.issn}"></td>
+        <td th:text="${record.publisher}"></td>
         <td th:text="${record.recommender}"></td>
         <td th:text="${record.recommendDate}"></td>
         <td th:text="${record.reason}"></td>
-    </tr>
-</table>
-
-<hr>
-
-<h3>🗂️ 期刊采访记录补充</h3>
-<form action="/periodical/visit/interview/add" method="post">
-    <p>期刊名称：<input type="text" name="title" required></p>
-    <p>ISSN：<input type="text" name="issn" required></p>
-    <p>出版社：<input type="text" name="publisher" required></p>
-    <p>采访员：<input type="text" name="interviewer" required></p>
-    <p>采访日期：<input type="date" name="interviewDate" required></p>
-    <p>采访记录：<input type="text" name="notes" required></p>
-    <button type="submit">记录</button>
-</form>
-
-<h3>📒 期刊采访记录清单</h3>
-<div th:if="${#lists.isEmpty(interviewList)}">
-    <p>暂无采访记录</p>
-</div>
-
-<table border="1" th:if="${!#lists.isEmpty(interviewList)}">
-    <tr>
-        <th>采访编号</th>
-        <th>期刊名称</th>
-        <th>ISSN</th>
-        <th>出版社</th>
-        <th>采访员</th>
-        <th>采访日期</th>
-        <th>备注</th>
-    </tr>
-    <tr th:each="record : ${interviewList}">
-        <td th:text="${record.interviewId}"></td>
-        <td th:text="${record.title}"></td>
-        <td th:text="${record.issn}"></td>
-        <td th:text="${record.publisher}"></td>
-        <td th:text="${record.interviewer}"></td>
-        <td th:text="${record.interviewDate}"></td>
-        <td th:text="${record.notes}"></td>
+        <td>
+            <a th:href="@{/periodical/order(title=${record.title},issn=${record.issn},publisher=${record.publisher})}">去订购</a>
+        </td>
     </tr>
 </table>
 
